@@ -1,0 +1,145 @@
+<template>
+  <div v-html="data" style="height: calc( 100vh - 48px );background-color:rgba(75, 81, 99, 1)">
+  </div>
+</template>
+
+<script>
+import api from "./../api/api";
+export default {
+  data() {
+    return {
+      data: ""
+    };
+  },
+  name: "sidebar",
+  mounted() {
+    //   var GetQueryString = param => {
+    //   const reg = new RegExp("(^|&)" + param + "=([^&]*)(&|$)");
+    //   const r =
+    //     window.location.search.substr(1).match(reg) ||
+    //     window.location.hash
+    //       .substring(window.location.hash.search(/\?/) + 1)
+    //       .match(reg);
+    //   if (r != null) {
+    //     return decodeURIComponent(r[2]);
+    //   }
+    // };
+    api
+      .getnavsider()
+      .then(res => {
+        console.log(res);
+        this.data = res;
+        setTimeout(() => {
+          const newScript = document.createElement('script');
+          newScript.src=`${api._baseUrl}/common_module/slider/slider.js`
+          const newcss = document.createElement('link');
+          newcss.setAttribute('type','text/css');
+          newcss.setAttribute('rel','stylesheet');
+          newcss.setAttribute('href',`${api._baseUrl}/common_module/slider/slider.css`);
+          //console.log(newScript,newcss);
+          document.head.appendChild(newScript);
+          var head = document.getElementsByTagName('head')[0];
+          head.appendChild(newcss);
+        }, 100);
+      });
+  }
+};
+</script>
+
+<style scoped>
+.ant-menu-dark .ant-menu-inline.ant-menu-sub {
+  background-color: rgba(51, 55, 67, 1);
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.ant-menu-dark.ant-menu-inline,
+.ant-menu-dark.ant-menu-vertical,
+.ant-menu-dark.ant-menu-vertical-left,
+.ant-menu-dark.ant-menu-vertical-right {
+  background-color: rgba(66, 73, 90, 1);
+  font-family: MicrosoftYaHei;
+  font-size: 12px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  letter-spacing: 0.5px;
+  color: #ffffff;
+}
+
+.ant-menu-dark.ant-menu-inline .ant-menu-item,
+.ant-menu-dark.ant-menu-inline .ant-menu-submenu-title {
+  margin: 0;
+  color: #fff;
+}
+
+.ant-menu.ant-menu-dark .ant-menu-item-selected,
+.ant-menu-submenu-popup.ant-menu-dark .ant-menu-item-selected {
+  background-color: rgba(85, 191, 219, 1);
+  margin: 0;
+  color: #fff;
+}
+
+.ant-menu-dark.ant-menu-inline .ant-menu-item,
+.ant-menu-dark.ant-menu-inline .ant-menu-submenu-title {
+  padding-left: 32px !important;
+}
+.ant-menu-inline .ant-menu-submenu-title {
+  padding-right: 10px;
+}
+
+/* 去除父菜单折叠icon */
+._menu .ant-menu-submenu-arrow {
+  display: none;
+}
+
+.ant-menu-submenu-popup {
+  left: 82px !important;
+}
+
+._menu {
+  height: 100%;
+  width: 178px;
+  background-color: rgba(51, 56, 67, 1);
+  transition: all 0.2s;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+._menu_title {
+  width: 178px;
+  height: 30px;
+  background-color: rgba(75, 81, 99, 1);
+  text-align: center;
+  line-height: 30px;
+  transition: all 0.2s;
+}
+
+.small {
+  width: 80px;
+}
+
+.ant-divider,
+.ant-divider-vertical {
+  margin: 0 1.5px;
+  height: 8px;
+  line-height: 8px;
+  top: 0;
+}
+
+.ant-spin-dot i {
+  background-color: #fff;
+}
+
+.ant-spin-dot .ant-spin-dot-spin {
+  color: #fff;
+}
+
+.ant-menu-submenu-title a {
+  color: #fff;
+}
+
+.ant-menu-submenu-title a:hover {
+  color: #fff;
+}
+</style>
